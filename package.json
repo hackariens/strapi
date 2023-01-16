@@ -1,27 +1,27 @@
 {
-  "name": "@koromerzhin/template-strapi",
+  "name": "@hackariens/strapi",
   "version": "1.0.0",
   "description": "Nouveau projet sous strapi",
   "scripts": {
-    "linter-markdown": "markdownlint",
-    "contributors": "all-contributors",
-    "readme": "readme",
-    "licenses": "license-checker",
-    "changelog": "changelog",
-    "jscpd": "jscpd app/src"
+    "docker:deploy": "korojscommands docker_deploy",
+    "docker:getpull-image": "korojscommands docker_getpull-image",
+    "docker:ls": "korojscommands docker_ls",
+    "docker:waiting": "korojscommands docker_waiting --status running --container www",
+    "exec": "npm-run-all bdd:mariadb docker:getpull-image docker:deploy docker:waiting docker:ls",
+    "lint:markdown": "markdownlint README.md"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/koromerzhin/template-strapi.git"
+    "url": "git+https://github.com/hackariens/strapi.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/koromerzhin/template-strapi/issues"
+    "url": "https://github.com/hackariens/strapi/issues"
   },
-  "homepage": "https://github.com/koromerzhin/template-strapi#readme",
+  "homepage": "https://github.com/hackariens/strapi#readme",
   "dependencies": {
-    "koromerzhin-dependencies": "^1.3.0"
+    "korojscommands": "^1.2.7"
   }
 }

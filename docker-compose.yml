@@ -1,39 +1,15 @@
-
 version: "3.4"
 networks:
-  proxylampy:
-    external: true
-  serverlampy:
-    external: true
   net:
     driver: overlay
     attachable: true
 
-volumes:
-    mariadb_data:
 services:
-    strapi:
-        image: strapi/strapi:3.6.5
-        environment:
-            DATABASE_CLIENT: mysql
-            DATABASE_HOST: mariadb
-            DATABASE_PORT: 3306
-            DATABASE_NAME: strapi_bdd
-            DATABASE_USERNAME: strapi
-            DATABASE_PASSWORD: password
-            DATABASE_SSL: 'false'
-        volumes:
-            - ./app:/srv/app
-        depends_on:
-            - mariadb
-        networks:
-            - net
-            - serverlampy
-            - proxylampy
-        deploy:
-            labels:
-                - "traefik.enable=true"
-                - "traefik.http.routers.strapi.rule=Host(`strapi.traefik.me`)"
-                - "traefik.http.routers.strapi-tls.tls.domains[0].main=strapi.traefik.me"
-                - "traefik.http.routers.strapi.tls=true"
-                - "traefik.http.services.strapi.loadbalancer.server.port=1337"
+  www:
+    image: strapi/strapi:3.6.5
+    volumes:
+      - ./app:/srv/app
+    depends_on:
+      - mariadb
+    networks:
+      - net
