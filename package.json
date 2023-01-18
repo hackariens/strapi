@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Nouveau projet sous strapi",
   "scripts": {
+    "bash:phpfpm": "docker exec -ti $(npx korojscommands docker_getname-container --container phpfpm) bash",
     "bdd:mariadb": "korojscommands bddset-mariadb",
     "docker:deploy": "korojscommands docker_deploy",
     "docker:getpull-image": "korojscommands docker_getpull-image",
