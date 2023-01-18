@@ -4,7 +4,6 @@ networks:
     external: true
   serverlampy:
     external: true
-
 services:
   www:
     environment:
@@ -16,7 +15,6 @@ services:
       DATABASE_PASSWORD: password
       DATABASE_SSL: 'false'
     networks:
-      - net
       - serverlampy
       - proxylampy
     deploy:
