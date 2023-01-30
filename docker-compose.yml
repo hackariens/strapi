@@ -3,6 +3,6 @@ services:
   www:
     image: strapi/strapi:3.6.5
     volumes:
-      - ./app:/srv/app
+      - ./apps:/srv/app
     depends_on:
       - mariadb
