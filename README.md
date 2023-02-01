@@ -36,6 +36,12 @@ Edit .env with .env.example
 npm install
 ```
 
+## Create folder
+
+``` sh
+npm run create:folder
+```
+
 ## Launch
 
 ``` sh

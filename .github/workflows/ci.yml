@@ -27,6 +27,8 @@ jobs:
         run: npm run bdd:mariadb
       - name: 'Launch Lampy'
         run: cd lampy && npm run exec
+      - name: 'Create folder'
+        run: npm run create:folder
       - name: 'Image pull'
         run: npm run docker:getpull-image
       - name: 'Build containers'
