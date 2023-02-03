@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "Nouveau projet sous strapi",
   "scripts": {
-    "bash:phpfpm": "docker exec -ti $(npx korojscommands docker_getname-container --container phpfpm) bash",
     "bdd:mariadb": "korojscommands bddset-mariadb",
-    "create:folder": "mkdir apps",
+    "create:apps": "docker container run -v $(pwd)/:/app --user $(id -u):$(id -g) $(npx korojscommands docker_get-image --key www) ./app/install.sh",
     "docker:deploy": "korojscommands docker_deploy",
     "docker:getpull-image": "korojscommands docker_getpull-image",
     "docker:ls": "korojscommands docker_ls",
@@ -25,6 +24,7 @@
   },
   "homepage": "https://github.com/hackariens/strapi#readme",
   "dependencies": {
+    "create-strapi-app": "^4.6.0",
     "korojscommands": "^1.2.14"
   }
 }
