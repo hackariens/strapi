@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/hackariens/strapi#readme",
   "dependencies": {
-    "create-strapi-app": "^4.6.0",
+    "create-strapi-app": "^5.0.0",
     "korojscommands": "^1.2.14"
   }
 }
