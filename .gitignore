@@ -1,6 +1,5 @@
 /node_modules
-!/apps/
-/apps/*
+/apps/node_modules
 !/apps/.gitkeep
 .env
 docker-compose-*.yml
