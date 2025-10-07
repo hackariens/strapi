@@ -1,0 +1,109 @@
+version: 3
+
+# Taskfile principal - Tâches globales et inclusions
+# Charge automatiquement les variables depuis le fichier .env s'il existe
+dotenv: [ '.env' ]
+
+includes:
+  docker: ./taskfiles/docker/Taskfile.yml
+  utils: ./taskfiles/utils/Taskfile.yml
+  env: ./taskfiles/env/Taskfile.yml
+  nodejs: ./taskfiles/nodejs/Taskfile.yml
+  download: ./taskfiles/download/Taskfile.yml
+
+vars:
+  # Variables avec valeurs par défaut depuis .env ou valeurs de fallback
+  PROJECT_NAME: '{{.PROJECT_NAME | default "strapi"}}'
+  PROJECT_VERSION: '1.0.0'
+  ENVIRONMENT: '{{.ENVIRONMENT | default "development"}}'
+  STACK_NAME: '{{.STACK | default "strapi"}}'
+  FOLDERSQL: '{{.FOLDERSQL | default "database_init"}}'
+  FILESQL: '{{.FILESQL | default "dump.sql"}}'
+  FOLDERLAMPY: '{{.FOLDERLAMPY | default "lampy"}}'
+  DOCKERCOMPOSEFILE: '{{.DOCKERCOMPOSEFILE | default "docker-compose.yml"}}'
+
+tasks:
+  default:
+    desc: "Affiche l'aide et les tâches disponibles"
+    silent: true
+    cmds:
+    - echo "🛠️  Collection de Taskfiles pour le développement"
+    - echo ""
+    - echo "Tâches globales disponibles :"
+    - task --list
+    - echo ""
+
+  strapi:copysql:
+    desc: "Copie le fichier SQL de dump dans le dossier strapi"
+    silent: true
+    cmds:
+    - task: utils:file:copy
+      vars:
+        SOURCE_FILE: ./{{.FOLDERSQL}}/{{.FILESQL}}
+        DEST_DIR: "{{.FOLDERLAMPY}}/mariadb_init/"
+        FORCE: true
+
+  info:
+    desc: "Affiche les informations du projet avec les variables d'environnement"
+    silent: true
+    cmds:
+    - |
+      echo "🛠️  {{.PROJECT_NAME}} v{{.PROJECT_VERSION}} - Collection de Taskfiles"
+      echo "Environnement: {{.ENVIRONMENT}}"
+
+  help:
+    desc: "Affiche l'aide détaillée"
+    aliases: [ h ]
+    cmds:
+    - task: default
+
+  strapi:getpull-image:
+    desc: "Télécharge les images Docker définies dans le docker-compose.yml"
+    silent: true
+    cmds:
+    - task: docker:images:pull
+      vars:
+        COMPOSE_FILE: "{{.DOCKERCOMPOSEFILE}}"
+
+  strapi:deploy:
+    desc: "Déploie les stacks Docker définies dans les fichiers docker-compose"
+    silent: true
+    cmds:
+    - task: docker:stack:deploy
+      vars:
+        COMPOSE_FILE: "{{.DOCKERCOMPOSEFILE}}"
+        STACK_NAME: "{{.STACK_NAME}}"
+
+  strapi:waiting:
+    desc: "Attend que les services soient opérationnels"
+    silent: true
+    cmds:
+    - task: docker:stack:check:containers:ready
+      vars:
+        CONTAINERS: "www"
+        STACK_NAME: "{{.STACK_NAME}}"
+
+  strapi:ls:
+    desc: "Liste les stacks et services Docker"
+    silent: true
+    cmds:
+    - task: docker:stack:services
+      vars:
+        STACK_NAME: "{{.STACK_NAME}}"
+
+  strapi:exec:
+    desc: "Exécute une commande dans un conteneur en cours d'exécution"
+    cmds:
+    - task: strapi:copysql
+    - task: strapi:getpull-image
+    - task: strapi:deploy
+    - task: strapi:waiting
+    - task: strapi:ls
+
+  strapi:bash:
+    desc: "Ouvre un shell bash dans le conteneur www"
+    cmds:
+    - task: docker:stack:shell
+      vars:
+        STACK_NAME: "strapi"
+        SERVICE_NAME: "www"
