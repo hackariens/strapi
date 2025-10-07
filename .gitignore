@@ -1,4 +1,7 @@
 /node_modules
-/apps
-!/apps
+!/apps/
+/apps/*
+!/apps/.gitkeep
 .env
+docker-compose-*.yml
+!docker-compose-lampy.yml
