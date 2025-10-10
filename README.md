@@ -3,7 +3,7 @@
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
 ![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/hackariens/strapi/graphs/commit-activity)
-![Continuous Integration](https://github.com/hackariens/strapi/workflows/ci/badge.svg?branch=develop)
+![Continuous Integration](https://github.com/hackariens/strapi/actions/workflows/ci.yml/badge.svg?branch=develop)
 
 > Nouveau projet sous strapi
 
@@ -17,12 +17,14 @@
 
 Software:
 
-- npm
+- [task](https://taskfile.dev/)
+- [nodejs](https://nodejs.org/)
+- [lampy](https://github.com/koromerzhin/lampy)
 
 ## Download
 
 ```sh
-git clone --recurse-submodules git@github.com:hackariens/strapi.git strapi
+git clone --recursive git@github.com:hackariens/strapi.git strapi
 cd strapi
 ```
 
@@ -30,22 +32,10 @@ cd strapi
 
 Edit .env with .env.example
 
-## Install
-
-```sh
-npm install
-```
-
-## Create folder
-
-``` sh
-npm run create:folder
-```
-
 ## Launch
 
 ``` sh
-npm run exec
+task strapi:exec
 ```
 
 ## Author
