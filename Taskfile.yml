@@ -33,6 +33,11 @@ tasks:
     - task --list
     - echo ""
 
+  lint:all:
+    desc: "Exécute tous les linters disponibles"
+    cmds:
+    - npm run lint:markdown
+
   strapi:copysql:
     desc: "Copie le fichier SQL de dump dans le dossier strapi"
     silent: true
