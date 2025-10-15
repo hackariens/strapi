@@ -6,6 +6,7 @@ networks:
     external: true
 services:
   www:
+    image: strapi/strapi:3.6.8-alpine
     environment:
       DATABASE_CLIENT: mysql
       DATABASE_HOST: mariadb
@@ -13,7 +14,10 @@ services:
       DATABASE_NAME: strapi_bdd
       DATABASE_USERNAME: strapi
       DATABASE_PASSWORD: password
-      DATABASE_SSL: 'false'
+    depends_on:
+      - mariadb
+    volumes:
+      - ${PWD}/apps:/srv/app:delegated
     networks:
       - serverlampy
       - proxylampy
