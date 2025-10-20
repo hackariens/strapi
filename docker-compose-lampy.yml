@@ -1,4 +1,3 @@
-version: "3.4"
 networks:
   proxylampy:
     external: true
@@ -14,8 +13,6 @@ services:
       DATABASE_NAME: strapi_bdd
       DATABASE_USERNAME: strapi
       DATABASE_PASSWORD: password
-    depends_on:
-      - mariadb
     volumes:
       - ${PWD}/apps:/srv/app:delegated
     networks:

@@ -10,6 +10,7 @@ includes:
   env: ./taskfiles/env/Taskfile.yml
   nodejs: ./taskfiles/nodejs/Taskfile.yml
   download: ./taskfiles/download/Taskfile.yml
+  lint: ./taskfiles/lint/Taskfile.yml
 
 vars:
   # Variables avec valeurs par défaut depuis .env ou valeurs de fallback
@@ -35,7 +36,14 @@ tasks:
   lint:all:
     desc: "Exécute tous les linters disponibles"
     cmds:
-    - npm run lint:markdown
+    - task: lint:yml
+      vars:
+        IGNORE_DIR: "taskfiles,apps"
+    - task: lint:md
+      vars:
+        IGNORE_DIR: "taskfiles,apps"
+    - task: lint:action
+    - task: lint:docker
 
   strapi:copysql:
     desc: "Copie le fichier SQL de dump dans le dossier strapi"
