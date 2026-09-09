@@ -17,12 +17,12 @@
   },
   "homepage": "https://github.com/hackariens/strapi#readme",
   "dependencies": {
-    "create-strapi-app": "4.6.*"
+    "create-strapi-app": "5.53.*"
   },
   "devDependencies": {
-    "cypress": "15.5.*",
+    "cypress": "16.0.*",
     "dotenv": "17.2.*",
-    "jscpd": "4.0.*",
-    "release-it": "19.0.*"
+    "jscpd": "5.2.*",
+    "release-it": "21.0.*"
   }
 }
